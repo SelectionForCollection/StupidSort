@@ -1,0 +1,97 @@
+#include <iostream>
+
+using namespace std;
+
+//Функция проверки.
+int Cin(long min, long max) {
+	long a;
+	//Проверяем рациональность числа и ввод лишних символов 
+	while (!(cin >> a) || (cin.peek() != '\n')) {
+		cin.clear();
+		while (cin.get() != '\n');
+		cout << "Явно присутствуют некорректные для данного типа символы. Проверьте корректность." << endl;
+	}
+
+	//Исключение нуля
+	if (a == 0) {
+		cout << "Введите число отличное от нуля" << endl;
+		a = Cin(min, max);
+	}
+	//Верхний предел
+	if (a > max) {
+		cout << "Число выходит за промежуток. По условию a =< " << max << " и а >= " << min << endl;
+		a = Cin(min, max);
+	}
+	//Нижний Предел
+	if (a < min) {
+		cout << "Число выходит за промежуток. По условию a =< " << max << " и а >= " << min << endl;
+		a = Cin(min, max);
+	}
+	//Исключение отрицательных чисел
+	if (a < 0) {
+		cout << "Вы ввели (" << a << ") Возьмем все-таки положительное, то есть " << abs(a) << endl;
+		a = abs(a);
+	}
+
+	return a;
+}
+
+//Функция проверки разрешающая ноль и отрицательные числа.
+int CIn(long min, long max) {
+	long a;
+	//Проверяем рациональность числа и ввод лишних символов 
+	while (!(cin >> a) || (cin.peek() != '\n')) {
+		cin.clear();
+		while (cin.get() != '\n');
+		cout << "Явно присутствуют некорректные для данного типа символы. Проверьте корректность." << endl;
+	}
+
+	//Верхний предел
+	if (a > max) {
+		cout << "Число выходит за промежуток. По условию a =< " << max << " и а >= " << min << endl;
+		a = Cin(min, max);
+	}
+	//Нижний Предел
+	if (a < min) {
+		cout << "Число выходит за промежуток. По условию a =< " << max << " и а >= " << min << endl;
+		a = Cin(min, max);
+	}
+
+	return a;
+}
+
+void stupid(int* a, int n) {
+	int i = 0;
+	while (i < n - 1) {
+		if (a[i + 1] < a[i]) {
+			swap(a[i], a[i + 1]);
+			i = 0;
+		}
+		else
+			i++;
+	}
+}
+
+int main() {
+	setlocale(LC_ALL, "rus");
+	int n;
+
+	cout << "N =";
+	n = Cin(0, 2147483647);
+
+	int* arr = new int[n];
+
+	for (int i = 0; i < n; i++) {
+		cout << "Введите элемент" << endl;
+		arr[i] = CIn(-2147483647,2147483647);
+	}
+
+	stupid(arr, n);
+
+	for (int i = 0; i < n; i++) {
+		cout<< arr[i]<< " ";
+	}
+
+	return 0;
+}
+
